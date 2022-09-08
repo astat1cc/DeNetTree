@@ -36,4 +36,8 @@ class NodeViewModel(
     fun changeOpenedNode(node: String) {
         interactor.saveLastOpenedNode(node)
     }
+
+    fun deleteNode(node: Node) = viewModelScope.launch(Dispatchers.IO) {
+        interactor.deleteNode(node)
+    }
 }

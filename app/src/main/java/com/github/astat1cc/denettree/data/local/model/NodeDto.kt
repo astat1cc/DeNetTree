@@ -15,6 +15,8 @@ data class NodeDto(
 
     companion object {
 
+        fun fromDomain(node: Node) = NodeDto(node.name, node.parent)
+
         const val TABLE_NAME = "nodes_table"
     }
 }

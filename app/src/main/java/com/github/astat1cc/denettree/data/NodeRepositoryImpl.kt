@@ -33,11 +33,15 @@ class NodeRepositoryImpl(
             emittedList.map { nodeDto -> nodeDto.toDomain() }
         }
 
-    override fun addNodeWith(parentName: String) {
+    override suspend fun addNodeWith(parentName: String) {
         val newId = getLastNodeId() + 1
         saveNewNodeId(newId)
         val generatedName = "0x" + Hash.sha3String(newId.toString()).takeLast(40)
         dao.saveNode(NodeDto(generatedName, parentName))
+    }
+
+    override suspend fun deleteNode(node: Node) {
+        dao.deleteNode(NodeDto.fromDomain(node))
     }
 
     private fun getLastOpenedNodeName(): String =

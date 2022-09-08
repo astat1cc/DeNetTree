@@ -7,11 +7,13 @@ interface NodeInteractor {
 
     fun getChildrenOf(parentName: String): Flow<List<Node>>
 
-    fun addNodeWith(parentName: String)
+    suspend fun addNodeWith(parentName: String)
 
     suspend fun getLastOpenedNode(): Node
 
     fun saveLastOpenedNode(nodeName: String)
+
+    suspend fun deleteNode(node: Node)
 
     class Impl(private val repository: NodeRepository) : NodeInteractor {
 
@@ -21,10 +23,13 @@ interface NodeInteractor {
         override fun getChildrenOf(parentName: String): Flow<List<Node>> =
             repository.getChildrenOf(parentName)
 
-        override fun addNodeWith(parentName: String) =
+        override suspend fun addNodeWith(parentName: String) =
             repository.addNodeWith(parentName)
 
         override fun saveLastOpenedNode(nodeName: String) =
             repository.saveLastOpenedNode(nodeName)
+
+        override suspend fun deleteNode(node: Node) =
+            repository.deleteNode(node)
     }
 }

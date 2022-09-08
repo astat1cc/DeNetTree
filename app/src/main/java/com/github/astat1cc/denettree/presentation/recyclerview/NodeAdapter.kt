@@ -12,7 +12,8 @@ import com.github.astat1cc.denettree.utils.AppResourceProvider
 
 class NodeAdapter(
     private val resourceProvider: AppResourceProvider,
-    private val onItemClickListener: (String) -> Unit
+    private val onItemClickListener: (String) -> Unit,
+    private val onItemDeleteListener: (Node) -> Unit
 ) : RecyclerView.Adapter<NodeAdapter.NodeViewHolder>() {
 
     var currentList: List<Node> = emptyList()
@@ -46,12 +47,14 @@ class NodeAdapter(
 
         private val parent = binding.parentTV
         private val name = binding.nameTV
+        private val delete = binding.delete
 
         fun bind(node: Node) {
             parent.text = resourceProvider.getString(R.string.parent_template, node.parent ?: "")
             name.text = resourceProvider.getString(R.string.name_template, node.name)
 
             itemView.setOnClickListener { onItemClickListener(node.name) }
+            delete.setOnClickListener { onItemDeleteListener(node) }
         }
     }
 }

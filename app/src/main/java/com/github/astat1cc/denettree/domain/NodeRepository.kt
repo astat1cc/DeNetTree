@@ -7,9 +7,11 @@ interface NodeRepository {
 
     fun getChildrenOf(parentName: String): Flow<List<Node>>
 
-    fun addNodeWith(parentName: String)
+    suspend fun addNodeWith(parentName: String)
 
     suspend fun getLastOpenedNode(): Node
 
     fun saveLastOpenedNode(nodeName: String)
+
+    suspend fun deleteNode(node: Node)
 }

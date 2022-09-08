@@ -25,9 +25,15 @@ class NodeFragment : Fragment() {
     private val resourceProvider by inject<AppResourceProvider>()
 
     private val adapter by lazy {
-        NodeAdapter(resourceProvider) { selectedNodeName ->
-            navigateTo(selectedNodeName, enterAnimation = true)
-        }
+        NodeAdapter(
+            resourceProvider,
+            onItemClickListener = { selectedNodeName ->
+                navigateTo(selectedNodeName, enterAnimation = true)
+            },
+            onItemDeleteListener = { node ->
+                viewModel.deleteNode(node)
+            }
+        )
     }
 
     override fun onCreateView(
