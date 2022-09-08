@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">DeNetTree</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="name_template">Name: %1$s</string>
+    <string name="parent_name">Parent name: %1$s</string>
+    <string name="parent_template">Parent: %1$s</string>
+    <string name="children_count">Children count: %1$s</string>
+    <string name="add_child">Add child</string>
+</resources>
