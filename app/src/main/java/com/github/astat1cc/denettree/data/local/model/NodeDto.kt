@@ -8,7 +8,7 @@ import com.github.astat1cc.denettree.domain.model.Node
 @Entity(tableName = TABLE_NAME)
 data class NodeDto(
     @PrimaryKey val name: String,
-    val parent: String?,
+    val parent: String?
 ) {
 
     fun toDomain() = Node(name, parent)

@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Ruslan/AndroidStudioProjects/DeNetTree/app/src/main/res/drawable/ic_arrow_back_ios.xml" value="0.124" />
         <entry key="..\:/Users/Ruslan/AndroidStudioProjects/DeNetTree/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Ruslan/AndroidStudioProjects/DeNetTree/app/src/main/res/layout/fragment_node.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Ruslan/AndroidStudioProjects/DeNetTree/app/src/main/res/layout/item_node.xml" value="0.25416666666666665" />
