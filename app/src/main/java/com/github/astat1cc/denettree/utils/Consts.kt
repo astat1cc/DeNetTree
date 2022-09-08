@@ -2,7 +2,7 @@ package com.github.astat1cc.denettree.utils
 
 object Consts {
 
-    const val ROOT_NODE_NAME = "root" // todo implement root node name
+    const val ROOT_NODE_NAME = "root"
     const val ROOT_NODE_ID = 0
 
     const val LAST_OPENED_NODE_KEY = ""

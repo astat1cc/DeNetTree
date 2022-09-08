@@ -3,12 +3,11 @@ package com.github.astat1cc.denettree.di
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
-import androidx.room.RoomDatabase
-import com.github.astat1cc.denettree.database.NodeDao
-import com.github.astat1cc.denettree.database.NodeDatabase
-import com.github.astat1cc.denettree.repository.NodeRepository
-import com.github.astat1cc.denettree.ui.recyclerview.NodeAdapter
-import com.github.astat1cc.denettree.ui.viewmodel.NodeViewModel
+import com.github.astat1cc.denettree.data.NodeRepositoryImpl
+import com.github.astat1cc.denettree.data.local.NodeDatabase
+import com.github.astat1cc.denettree.domain.NodeInteractor
+import com.github.astat1cc.denettree.domain.NodeRepository
+import com.github.astat1cc.denettree.presentation.viewmodel.NodeViewModel
 import com.github.astat1cc.denettree.utils.AppResourceProvider
 import com.github.astat1cc.denettree.utils.Consts
 import org.koin.android.ext.koin.androidContext
@@ -29,11 +28,14 @@ val koinModule = module {
     single {
         provideDao(database = get())
     }
-    single {
-        NodeRepository(sharedPref = get(), dao = get())
+    single<NodeRepository> {
+        NodeRepositoryImpl(sharedPref = get(), dao = get())
+    }
+    single<NodeInteractor> {
+        NodeInteractor.Impl(repository = get())
     }
     viewModel {
-        NodeViewModel(repository = get())
+        NodeViewModel(interactor = get())
     }
 }
 

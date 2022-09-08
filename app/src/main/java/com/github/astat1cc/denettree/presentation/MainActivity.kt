@@ -1,11 +1,9 @@
-package com.github.astat1cc.denettree.ui
+package com.github.astat1cc.denettree.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.github.astat1cc.denettree.R
-import com.github.astat1cc.denettree.ui.fragment.NodeFragment
-import org.web3j.crypto.Hash
+import com.github.astat1cc.denettree.presentation.fragment.NodeFragment
 
 class MainActivity : AppCompatActivity() {
 

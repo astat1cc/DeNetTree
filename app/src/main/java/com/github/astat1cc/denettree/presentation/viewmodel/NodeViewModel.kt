@@ -1,19 +1,20 @@
-package com.github.astat1cc.denettree.ui.viewmodel
+package com.github.astat1cc.denettree.presentation.viewmodel
 
-import androidx.lifecycle.*
-import com.github.astat1cc.denettree.models.Node
-import com.github.astat1cc.denettree.repository.NodeRepository
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.github.astat1cc.denettree.domain.NodeInteractor
+import com.github.astat1cc.denettree.domain.model.Node
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class NodeViewModel(
-    private val repository: NodeRepository
+    private val interactor: NodeInteractor
 ) : ViewModel() {
 
     val currentNode: SharedFlow<Node> = flow {
-        val node = repository.getLastOpenedNode()
+        val node = interactor.getLastOpenedNode()
         setChildren(node.name)
         emit(node)
     }.shareIn(viewModelScope, started = SharingStarted.Lazily, replay = 1)
@@ -24,15 +25,15 @@ class NodeViewModel(
 
     private fun setChildren(parentName: String) {
         viewModelScope.launch {
-            _children.emitAll(repository.getChildrenOf(parentName))
+            _children.emitAll(interactor.getChildrenOf(parentName))
         }
     }
 
     fun addNode() = viewModelScope.launch(Dispatchers.IO) {
-        repository.addNodeOf(parentName = currentNode.replayCache.last().name)
+        interactor.addNodeWith(parentName = currentNode.replayCache.last().name)
     }
 
-    fun changeOpenedNode(selectedNodeName: String) {
-        repository.saveLastOpenedNode(selectedNodeName)
+    fun changeOpenedNode(node: String) {
+        interactor.saveLastOpenedNode(node)
     }
 }

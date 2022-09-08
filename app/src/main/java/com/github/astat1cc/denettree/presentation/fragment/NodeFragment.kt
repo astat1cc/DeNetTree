@@ -1,4 +1,4 @@
-package com.github.astat1cc.denettree.ui.fragment
+package com.github.astat1cc.denettree.presentation.fragment
 
 import android.graphics.Color
 import android.os.Bundle
@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.github.astat1cc.denettree.R
 import com.github.astat1cc.denettree.databinding.FragmentNodeBinding
-import com.github.astat1cc.denettree.ui.recyclerview.NodeAdapter
-import com.github.astat1cc.denettree.ui.viewmodel.NodeViewModel
+import com.github.astat1cc.denettree.presentation.recyclerview.NodeAdapter
+import com.github.astat1cc.denettree.presentation.viewmodel.NodeViewModel
 import com.github.astat1cc.denettree.utils.AppResourceProvider
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -26,7 +26,7 @@ class NodeFragment : Fragment() {
 
     private val adapter by lazy {
         NodeAdapter(resourceProvider) { selectedNodeName ->
-            navigateTo(selectedNodeName)
+            navigateTo(selectedNodeName, enterAnimation = true)
         }
     }
 
@@ -57,7 +57,7 @@ class NodeFragment : Fragment() {
     private fun customNavigateUp() {
         nameOfParentOfCurrentNode?.let {
             if (nameOfParentOfCurrentNode!!.isNotEmpty()) {
-                navigateTo(nameOfParentOfCurrentNode!!)
+                navigateTo(nameOfParentOfCurrentNode!!, enterAnimation = false)
             } else {
                 requireActivity().finish()
             }
@@ -103,9 +103,14 @@ class NodeFragment : Fragment() {
         }
     }
 
-    private fun navigateTo(nodeName: String) {
+    private fun navigateTo(nodeName: String, enterAnimation: Boolean) {
         viewModel.changeOpenedNode(nodeName)
-        parentFragmentManager.beginTransaction().replace(R.id.fragmentContainer, NodeFragment())
-            .commit()
+        val transaction = parentFragmentManager.beginTransaction()
+        if (enterAnimation) {
+            transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+        } else {
+            transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+        }
+        transaction.replace(R.id.fragmentContainer, NodeFragment()).commit()
     }
 }

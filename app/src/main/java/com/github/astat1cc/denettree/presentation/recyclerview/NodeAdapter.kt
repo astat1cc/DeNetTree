@@ -1,4 +1,4 @@
-package com.github.astat1cc.denettree.ui.recyclerview
+package com.github.astat1cc.denettree.presentation.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.github.astat1cc.denettree.R
 import com.github.astat1cc.denettree.databinding.ItemNodeBinding
-import com.github.astat1cc.denettree.models.Node
+import com.github.astat1cc.denettree.domain.model.Node
 import com.github.astat1cc.denettree.utils.AppResourceProvider
 
 class NodeAdapter(
